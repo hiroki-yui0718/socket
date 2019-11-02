@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.ParseException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 class Sample1 {
 	public void runSample() {
@@ -36,33 +39,12 @@ class Sample1 {
 
 			//無限ループ　byeの入力でループを抜ける
 			String line = null;
-			int num;
-			while (true) {
 
 				line = reader.readLine();
 
-				if (line.equals("bye")) {
-					break;
-				}
-
-				try{
-					num = Integer.parseInt(line);
-
-					if(num%2==0){
-						//送信用の文字を送信
-						writer.println("OK");
-					}else{
-						//送信用の文字を送信
-						writer.println("NG");
-					}
-				}catch(NumberFormatException e){
-					//送信用の文字を送信
-					writer.println("数値を入力して下さい");
-				}
-
 				System.out.println("クライアントで入力された文字＝" + line);
 
-			}
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -85,24 +67,17 @@ class Sample1 {
 			}
 		}
 	}
-	public static void main(String[] args) {
 
+	public static void main(String[] args) throws ParseException {
+		Timer timer = new Timer(false);
+		TimerTask task = new TimerTask() {
+
+			@Override
+			public void run() {
 				Sample1 s1 = new Sample1();
 				s1.runSample();
-
+			}
+		};
+		timer.schedule(task, 0, 1000);
 	}
 }
-
-//	public static void main(String[] args) throws ParseException {
-//		Timer timer = new Timer(false);
-//		TimerTask task = new TimerTask() {
-//
-//			@Override
-//			public void run() {
-//				Sample1 s1 = new Sample1();
-//				s1.runSample();
-//			}
-//		};
-//		timer.schedule(task, 1000);
-//	}
-//}
