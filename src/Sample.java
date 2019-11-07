@@ -15,6 +15,10 @@ public class Sample {
         sec = sec % 60;
         LocalTime t3 = LocalTime.of(hour,min,sec);
 		System.out.println(t3.toString());
+
+		System.out.println(t1.getYear());
+		System.out.println(t1.getMonthValue());
+		System.out.println(t1.getDayOfMonth());
 	}
 
 }
